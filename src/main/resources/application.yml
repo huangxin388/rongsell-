@@ -1,0 +1,80 @@
+server:
+  servlet:
+    context-path: /rongsell
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://116.62.50.7:3306/rongsell?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    password: Admin@123
+    username: root
+    driver-class-name: com.mysql.jdbc.Driver
+    platform: mysql
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 初始化大小，最小，最大
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    #useGlobalDataSourceStat: true
+  redis:
+    host: 116.62.50.7
+    port: 6379
+    password: aliyun$%^
+    timeout: 10000
+    block-when-exhausted: true
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
+
+
+#Mybatis
+mybatis:
+  #加载mybatis主要配置类
+  config-location: classpath:/mybatis-config.xml
+  #加载mapper配置类
+  mapper-locations: classpath:/mapper/*.xml
+  #加载mapper实体类
+  type-aliases-package: com.bupt.rongsell.entity
+
+#pageHelper分页配置
+pagehelper:
+  #pageSize=0或者RowBounds.limit = 0时返回全部结果
+  page-size-zero: true
+  #将 RowBounds 中的 offset 参数当成 pageNum 使用，可以用页码和页面大小两个参数进行分页
+  offset-as-page-num: true
+  #使用 RowBounds 分页会进行 count 查询
+  row-bounds-with-count: true
+  #pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页；该参数为false时不合法参数将会返回空
+  reasonable: true
+
+staticPath:
+  win:
+    imgBasePath: D:\\Demo\image
+    fileBasePath: D:\\Demo\file
+  lin:
+    imgBasePath: /home/huangxin/sharefileclient/rongsell/image
+    fileBasePath: /home/huangxin/sharefileclient/rongsell/file
