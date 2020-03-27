@@ -244,7 +244,7 @@
                             <archive>
                                 <manifest>
                                     <addClasspath>true</addClasspath>
-                                    <mainClass>cn.waterch.partyconstruction.PartyConstructionApplication</mainClass>
+                                    <mainClass>com.bupt.rongsell.RongsellApplication</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
