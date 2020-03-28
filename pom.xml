@@ -218,7 +218,7 @@
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
                     <compilerArguments>
-                        <extdirs>src/main/resources/lib/*.jar</extdirs>
+                        <extdirs>src/main/resources/lib</extdirs>
                     </compilerArguments>
                 </configuration>
             </plugin>
