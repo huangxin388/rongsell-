@@ -217,7 +217,6 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
-                    <compilerVersion>3.8.1</compilerVersion>
                     <compilerArguments>
                         <extdirs>src/main/resources/lib/*.jar</extdirs>
                     </compilerArguments>
