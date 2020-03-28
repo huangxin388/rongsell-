@@ -167,10 +167,6 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <targetPath>${basedir}/lib/*.jar</targetPath>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
                 <targetPath>${basedir}/target/classes</targetPath>
                 <filtering>true</filtering>
             </resource>
@@ -216,12 +212,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
+                    <compilerVersion>3.8.1</compilerVersion>
                     <compilerArguments>
-                        <extdirs>${project.basedir}/src/main/resources/lib</extdirs>
+                        <extdirs>src/main/resources/lib/*.jar</extdirs>
                     </compilerArguments>
                 </configuration>
             </plugin>
