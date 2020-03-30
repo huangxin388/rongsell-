@@ -1,4 +1,4 @@
-# dev
+#prod
 server:
   servlet:
     context-path: /rongsell

@@ -1,7 +1,9 @@
 package com.bupt.rongsell.config.web;
 
 
+import com.bupt.rongsell.filter.CrossFilter;
 import org.springframework.beans.BeansException;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -52,6 +54,16 @@ public class MvcConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         multipartResolver.setMaxUploadSize(524288000);
         multipartResolver.setMaxInMemorySize(524288000);
         return multipartResolver;
+    }
+
+    @Bean
+    public FilterRegistrationBean testFilterRegistration() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new CrossFilter());
+        registration.addUrlPatterns("/*"); //
+        registration.addInitParameter("paramName", "paramValue"); //
+        registration.setName("testFilter");
+        return registration;
     }
 
 }
