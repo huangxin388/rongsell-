@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 public class CookieUtil {
-    public static final String COOKIE_DOMAIN = "localhost";
+    public static final String COOKIE_DOMAIN = ".localserver.com";
     public static final String COOKIE_NAME = "haitao_login_token";
 
     /**
