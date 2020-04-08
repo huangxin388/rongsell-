@@ -1,5 +1,6 @@
 package com.bupt.rongsell.utils;
 
+import com.bupt.rongsell.common.Const;
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,11 +36,19 @@ public class FTPUtil {
         this.pass = pass;
     }
 
-    public static boolean uploadFile(List<File> fileList) {
+    public static boolean uploadImage(List<File> fileList) {
         FTPUtil ftpUtil = new FTPUtil(ftpIp, 21, ftpUser, ftpPass);
         logger.info("开始连接ftp服务器");
-        boolean result = ftpUtil.uploadFile("rongsell/images", fileList);
+        boolean result = ftpUtil.uploadFile(Const.FTP_IMAGE_DIRECTORY, fileList);
         logger.info("文件上传完毕，上传结果为{}", result);
+        return result;
+    }
+
+    public static boolean deleteImage(String fileName) {
+        FTPUtil ftpUtil = new FTPUtil(ftpIp, 21, ftpUser, ftpPass);
+        logger.info("开始连接ftp服务器");
+        boolean result = ftpUtil.deleteFile(Const.FTP_IMAGE_DIRECTORY, fileName);
+        logger.info("文件删除完毕，删除结果为{}", result);
         return result;
     }
 
@@ -58,7 +67,7 @@ public class FTPUtil {
                 ftpClient.enterLocalPassiveMode();
                 for(File fileItem : fileList) {
                     fis = new FileInputStream(fileItem);
-                    ftpClient.storeFile(fileItem.getName(), fis);
+                    uploaded = ftpClient.storeFile(fileItem.getName(), fis);
                 }
             } catch (IOException e) {
                 logger.error("上传文件异常", e);
@@ -66,6 +75,35 @@ public class FTPUtil {
             } finally {
                 try {
                     fis.close();
+                    ftpClient.disconnect();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return uploaded;
+    }
+
+    private boolean deleteFile(String remotePath, String fileName) {
+        boolean uploaded = true;
+        // 连接FTP服务器
+        if(connectServer(ip, port, user, pass)) {
+            try {
+                ftpClient.changeWorkingDirectory(remotePath);
+                ftpClient.setBufferSize(1024);
+                ftpClient.setControlEncoding("UTF-8");
+                // 二进制防止乱码
+                ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);
+                // 打开本地被动模式
+                ftpClient.enterLocalPassiveMode();
+                String curDirectory = ftpClient.printWorkingDirectory();
+                logger.info("当前目录为：" + curDirectory);
+                uploaded = ftpClient.deleteFile(new String(fileName.getBytes("UTF-8")));
+            } catch (IOException e) {
+                logger.error("删除文件异常", e);
+                uploaded = false;
+            } finally {
+                try {
                     ftpClient.disconnect();
                 } catch (IOException e) {
                     e.printStackTrace();

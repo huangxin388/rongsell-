@@ -53,7 +53,7 @@ public class CrossFilter implements Filter{
         response.setCharacterEncoding("UTF-8");
         log.info("REFERER:{}", request.getHeader("REFERER"));
         //允许来自所有域的访问
-        response.setHeader("Access-Control-Allow-Origin", "127.0.0.1");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:8088");
         //允许客户端携带验证信息，例如 cookie 之类的
         response.setHeader("Access-Control-Allow-Credentials","true");
         //响应标头指定响应访问所述资源到时允许的一种或多种方法预检请求。

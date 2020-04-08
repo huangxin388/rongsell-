@@ -2,6 +2,7 @@ package com.bupt.rongsell.service;
 
 import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.entity.Category;
+import com.bupt.rongsell.vo.CategoryVo;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public interface CategoryService {
      * @param categoryId
      * @return
      */
-    ServerResponse<List<Integer>> getRecursiveChildrenCategory(Integer categoryId);
+    ServerResponse<List<CategoryVo>> getRecursiveChildrenCategory(Integer categoryId);
 
 
 }

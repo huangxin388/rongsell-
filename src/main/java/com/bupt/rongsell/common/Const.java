@@ -13,6 +13,14 @@ public class Const {
 
     public static final String REDIS_PREFIX = "rongsell_";
 
+
+    public static final String FTP_IMAGE_DIRECTORY = "rongsell/image";
+
+    public interface RedisCacheExTime {
+        int REDIS_SESSION_EX_TIME = 60*30; // 30分钟
+
+    }
+
     public interface Role {
         int ROLE_CUSTOMER = 0; // 普通用户
         int ROLE_ADMIN = 1; // 管理员

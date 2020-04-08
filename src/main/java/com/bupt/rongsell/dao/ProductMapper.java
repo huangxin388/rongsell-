@@ -3,6 +3,8 @@ package com.bupt.rongsell.dao;
 import com.bupt.rongsell.entity.Product;
 import com.bupt.rongsell.entity.ProductExample;
 import java.util.List;
+
+import com.bupt.rongsell.vo.CategoryVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -132,5 +134,5 @@ public interface ProductMapper {
      * @param categoryIdList
      * @return
      */
-    List<Product> selectProductByNameAndCategoryIds(@Param("name") String name, @Param("categoryIdList") List<Integer> categoryIdList);
+    List<Product> selectProductByNameAndCategoryIds(@Param("name") String name, @Param("categoryIdList") List<CategoryVo> categoryIdList);
 }

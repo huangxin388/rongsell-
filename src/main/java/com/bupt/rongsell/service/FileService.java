@@ -15,5 +15,12 @@ public interface FileService {
      * @param path
      * @return
      */
-    String uploadFile(MultipartFile file, String path);
+    String uploadImage(MultipartFile file, String path);
+
+    /**
+     * 删除文件
+     * @param fileName
+     * @return
+     */
+    Boolean deleteImage(String fileName);
 }

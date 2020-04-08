@@ -40,16 +40,16 @@ spring:
     host: 116.62.50.7
     port: 6379
     password: aliyun$%^
-    timeout: 10000
-    block-when-exhausted: true
+    timeout: 2000
     jedis:
       pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 500
-        min-idle: 0
-    lettuce:
-      shutdown-timeout: 0
+        maxTotal: 20 # 最大连接数
+        maxWait: -1
+        maxIdle: 10 # 处于idle状态的最大连接数
+        minIdle: 2 # 处于idle状态的最小连接数
+        testOnBorrow: true # 从连接池获取连接时先校验连接是否可用
+        testOnReturn: false # 归还连接至连接池时先校验连接是否可用
+        blockWhenExhausted: true
 
 
 #Mybatis

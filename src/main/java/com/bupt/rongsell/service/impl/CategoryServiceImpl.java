@@ -4,6 +4,7 @@ import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.dao.CategoryMapper;
 import com.bupt.rongsell.entity.Category;
 import com.bupt.rongsell.service.CategoryService;
+import com.bupt.rongsell.vo.CategoryVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,13 +70,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public ServerResponse<List<Integer>> getRecursiveChildrenCategory(Integer categoryId) {
+    public ServerResponse<List<CategoryVo>> getRecursiveChildrenCategory(Integer categoryId) {
         Set<Category> categorySet = new HashSet<>();
         recursiveCategory(categorySet, categoryId);
-        List<Integer> categoryIdList = new ArrayList<>();
+        List<CategoryVo> categoryIdList = new ArrayList<>();
         if(categoryId != null) {
             for(Category category : categorySet) {
-                categoryIdList.add(category.getId());
+                categoryIdList.add(new CategoryVo(category.getId(), category.getName()));
             }
         }
         return ServerResponse.getSuccess(categoryIdList);

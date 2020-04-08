@@ -8,6 +8,7 @@ import com.bupt.rongsell.entity.User;
 import com.bupt.rongsell.enums.ResponseCode;
 import com.bupt.rongsell.service.CategoryService;
 import com.bupt.rongsell.service.UserService;
+import com.bupt.rongsell.vo.CategoryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,8 +78,8 @@ public class CategoryManageController {
     }
 
     @PostMapping("/getrecursivelchildrencategory")
-    public ServerResponse<List<Integer>> getRecursiveChildrenCategory(HttpServletRequest request,
-                                                                      @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
+    public ServerResponse<List<CategoryVo>> getRecursiveChildrenCategory(HttpServletRequest request,
+                                                                         @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
         User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
         if(user == null) {
             return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");

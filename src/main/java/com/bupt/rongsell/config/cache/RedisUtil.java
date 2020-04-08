@@ -46,6 +46,8 @@ public class RedisUtil {
             logger.info(value);
         } catch (Exception e) {
             logger.error(e.getMessage());
+        } finally {
+            returnResource(jedis);
         }
         return value;
     }
@@ -1847,7 +1849,7 @@ public class RedisUtil {
      * 返还到连接池
      * @param jedis
      */
-    public static void returnResource(Jedis jedis) {
+    private static void returnResource(Jedis jedis) {
         if (jedis != null) {
             jedis.close();
 

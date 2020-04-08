@@ -129,11 +129,29 @@ public class ProductManageController {
         }
         if(userService.checkAdminRole(user).isSuccess()) {
             // 是管理员
-            String targetFileName = fileService.uploadFile(imageFile, path);
+            String targetFileName = fileService.uploadImage(imageFile, path);
             String url = PropertyUtil.getProperty("ftp.server.http.prefix") + targetFileName;
             modelMap.put("uri", targetFileName);
             modelMap.put("url", url);
             return ServerResponse.getSuccess(modelMap);
+        } else {
+            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
+        }
+    }
+
+    @PostMapping("/deleteimage")
+    public ServerResponse deleteImage(HttpServletRequest request, String fileName) {
+        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        if(user == null) {
+            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
+        }
+        if(userService.checkAdminRole(user).isSuccess()) {
+            // 是管理员
+            Boolean deleteResult = fileService.deleteImage(fileName);
+            if(deleteResult) {
+                return ServerResponse.getSuccess();
+            }
+            return ServerResponse.getFailure();
         } else {
             return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
         }

@@ -24,7 +24,7 @@ public class FileServiceImpl implements FileService {
     Logger logger = LoggerFactory.getLogger(FileServiceImpl.class);
 
     @Override
-    public String uploadFile(MultipartFile file, String path) {
+    public String uploadImage(MultipartFile file, String path) {
         String fileName = file.getOriginalFilename();
         // 获取扩展名
         String fileExtensionName = fileName.substring(fileName.lastIndexOf("."));
@@ -46,7 +46,7 @@ public class FileServiceImpl implements FileService {
             // 将targetFile上传到文件服务器上
             List<File> fileList = new ArrayList<>();
             fileList.add(targetFile);
-            FTPUtil.uploadFile(fileList);
+            FTPUtil.uploadImage(fileList);
 
             // 图片上传完成后删除upload下面的文件
             targetFile.delete();
@@ -56,5 +56,11 @@ public class FileServiceImpl implements FileService {
         }
 
         return targetFile.getName();
+    }
+
+    @Override
+    public Boolean deleteImage(String fileName) {
+        Boolean result = FTPUtil.deleteImage(fileName);
+        return result;
     }
 }

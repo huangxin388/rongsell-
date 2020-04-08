@@ -2,9 +2,13 @@ package com.bupt.rongsell.controller;
 
 import com.bupt.rongsell.common.Const;
 import com.bupt.rongsell.common.ServerResponse;
+import com.bupt.rongsell.config.cache.RedisUtil;
 import com.bupt.rongsell.entity.User;
 import com.bupt.rongsell.enums.ResponseCode;
 import com.bupt.rongsell.service.UserService;
+import com.bupt.rongsell.utils.CookieUtil;
+import com.bupt.rongsell.utils.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author huang xin
@@ -20,15 +25,24 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisUtil redisUtil;
+
     @PostMapping("/login")
-    public ServerResponse<User> login(String username, String password, HttpServletRequest request) {
+    public ServerResponse<User> login(String username, String password,
+                                      HttpServletRequest request,
+                                      HttpServletResponse httpServletResponse) {
         ServerResponse response = userService.login(username, password);
         if(response.isSuccess()) {
-            request.getSession().setAttribute(Const.CURRENT_USER, response.getData());
+            CookieUtil.writeLoginCookie(httpServletResponse, request.getSession().getId());
+            log.info("写入cookie，sessionId:{}", request.getSession().getId());
+            redisUtil.setex(request.getSession().getId(),
+                    Const.RedisCacheExTime.REDIS_SESSION_EX_TIME, JsonUtil.obj2String(response.getData()));
         }
         return response;
     }

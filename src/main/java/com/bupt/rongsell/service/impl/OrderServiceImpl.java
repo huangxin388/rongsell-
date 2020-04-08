@@ -499,7 +499,7 @@ public class OrderServiceImpl implements OrderService {
                 ZxingUtils.getQRCodeImge(response.getQrCode(), 256, qrPath);
                 File targetFile = new File(path, qrFileName);
                 List<File> fileList = new ArrayList<>();
-                FTPUtil.uploadFile(fileList);
+                FTPUtil.uploadImage(fileList);
                 String qrUrl = PropertyUtil.getProperty("ftp.server.http.prefix") + targetFile.getName();
                 modelMap.put("qrUrl", qrUrl);
                 return ServerResponse.getSuccess(modelMap);

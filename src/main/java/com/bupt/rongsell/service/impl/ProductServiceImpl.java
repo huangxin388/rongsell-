@@ -12,6 +12,7 @@ import com.bupt.rongsell.service.CategoryService;
 import com.bupt.rongsell.service.ProductService;
 import com.bupt.rongsell.utils.DatetimeUtil;
 import com.bupt.rongsell.utils.PropertyUtil;
+import com.bupt.rongsell.vo.CategoryVo;
 import com.bupt.rongsell.vo.ProductDetailVo;
 import com.bupt.rongsell.vo.ProductListVo;
 import com.github.pagehelper.Page;
@@ -49,9 +50,12 @@ public class ProductServiceImpl implements ProductService {
             if(subImageArray.length > 0) {
                 product.setMainImage(subImageArray[0]);
             }
+            product.setStatus(Const.ProductStatusEnum.ON_SALE.getCode());
+            product.setUpdateTime(new Date());
             int resultCount = 0;
             if(product.getId() == null) {
                 // 添加
+                product.setCreateTime(new Date());
                 resultCount = productMapper.insert(product);
                 if(resultCount > 0) {
                     return ServerResponse.getSuccess("添加商品信息成功");
@@ -201,7 +205,7 @@ public class ProductServiceImpl implements ProductService {
             return ServerResponse.getFailureByMessage("参数错误");
         }
 
-        List<Integer> categoryIdList = new ArrayList<>();
+        List<CategoryVo> categoryIdList = new ArrayList<>();
 
         if(categoryId != null) {
             Category category = categoryMapper.selectByPrimaryKey(categoryId);
