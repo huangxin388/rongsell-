@@ -40,15 +40,21 @@ public class UserController {
         ServerResponse response = userService.login(username, password);
         if(response.isSuccess()) {
             CookieUtil.writeLoginCookie(httpServletResponse, request.getSession().getId());
-            log.info("写入cookie，sessionId:{}", request.getSession().getId());
+            log.info("登录时写入cookie，sessionId:{}", request.getSession().getId());
             redisUtil.setex(request.getSession().getId(),
                     Const.RedisCacheExTime.REDIS_SESSION_EX_TIME, JsonUtil.obj2String(response.getData()));
         }
         return response;
     }
     @GetMapping("/logout")
-    public ServerResponse<String> logout(HttpServletRequest request) {
-        request.getSession().removeAttribute(Const.CURRENT_USER);
+    public ServerResponse<String> logout(HttpServletRequest request, HttpServletResponse response) {
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        // 删除cookie
+        CookieUtil.deleteLoginCookie(request, response);
+        log.info("删除cookie");
+        // 删除redis中存储的sessionId
+        redisUtil.del(sessionId);
         return ServerResponse.getSuccess();
     }
 
@@ -70,7 +76,14 @@ public class UserController {
 
     @GetMapping("/getuserinfo")
     public ServerResponse<User> getUserInfo(HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user != null) {
             return ServerResponse.getSuccess(user);
         }
@@ -108,7 +121,14 @@ public class UserController {
      */
     @PostMapping("resetpassword")
     public ServerResponse<String> resetPassword(HttpServletRequest request, String passwordOld, String passwordNew) {
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user == null) {
             return ServerResponse.getFailureByMessage("用户未登录");
         }
@@ -117,7 +137,14 @@ public class UserController {
 
     @PostMapping("updateuserinformation")
     public ServerResponse<User> updateUserInformation(HttpServletRequest request, User user) {
-        User currentUser = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User currentUser = JsonUtil.string2Obj(userStr, User.class);
         if(currentUser == null) {
             return ServerResponse.getFailureByMessage("用户未登录");
         }
@@ -125,16 +152,25 @@ public class UserController {
         user.setUsername(currentUser.getUsername());
         ServerResponse<User> response = userService.updateUserInformation(user);
         if(response.isSuccess()) {
-            request.getSession().setAttribute(Const.CURRENT_USER, response.getData());
+            response.getData().setUsername(currentUser.getUsername());
+            redisUtil.setex(sessionId,
+                    Const.RedisCacheExTime.REDIS_SESSION_EX_TIME, JsonUtil.obj2String(response.getData()));
         }
         return response;
     }
 
     @GetMapping("/getuserinformation")
     public ServerResponse<User> getUserInformation(HttpServletRequest request) {
-        User currentUser = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User currentUser = JsonUtil.string2Obj(userStr, User.class);
         if(currentUser == null) {
-            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录需要强制登录");
+            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，无法获取当前用户信息");
         }
         return userService.getUserInformation(currentUser.getId());
     }

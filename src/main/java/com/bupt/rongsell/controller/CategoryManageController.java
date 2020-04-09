@@ -2,12 +2,15 @@ package com.bupt.rongsell.controller;
 
 import com.bupt.rongsell.common.Const;
 import com.bupt.rongsell.common.ServerResponse;
+import com.bupt.rongsell.config.cache.RedisUtil;
 import com.bupt.rongsell.dao.CategoryMapper;
 import com.bupt.rongsell.entity.Category;
 import com.bupt.rongsell.entity.User;
 import com.bupt.rongsell.enums.ResponseCode;
 import com.bupt.rongsell.service.CategoryService;
 import com.bupt.rongsell.service.UserService;
+import com.bupt.rongsell.utils.CookieUtil;
+import com.bupt.rongsell.utils.JsonUtil;
 import com.bupt.rongsell.vo.CategoryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,10 +36,20 @@ public class CategoryManageController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     @PostMapping("/addcategory")
     public ServerResponse<String> addCategory(@RequestParam(value = "parentId", defaultValue = "0") Integer parentId,
                                               String categoryName, HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user == null) {
             return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
         }
@@ -50,7 +63,14 @@ public class CategoryManageController {
 
     @PostMapping("/changecategoryname")
     public ServerResponse<String> changeCategoryName(Integer categoryId, String categoryName, HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user == null) {
             return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
         }
@@ -65,7 +85,14 @@ public class CategoryManageController {
     @PostMapping("/getparallelchildrencategory")
     public ServerResponse<List<Category>> getParallelChildrenCategory(HttpServletRequest request,
                                                                       @RequestParam(value = "parentId", defaultValue = "0") Integer parentId) {
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user == null) {
             return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
         }
@@ -80,7 +107,14 @@ public class CategoryManageController {
     @PostMapping("/getrecursivelchildrencategory")
     public ServerResponse<List<CategoryVo>> getRecursiveChildrenCategory(HttpServletRequest request,
                                                                          @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user == null) {
             return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
         }

@@ -116,7 +116,8 @@ public class UserServiceImpl implements UserService {
         int resultCount = userMapper.checkQuestionAndAnswerByUsername(username, question, answer);
         if(resultCount > 0) {
             String token = UUID.randomUUID().toString().replace("-", "");
-            redisUtil.set(Const.REDIS_PREFIX + username, token);
+            // 有效期为12个小时
+            redisUtil.setex(Const.REDIS_PREFIX + username, 60*60*12, token);
             return ServerResponse.getSuccess(token);
         }
         return ServerResponse.getFailureByMessage("问题的答案错误");

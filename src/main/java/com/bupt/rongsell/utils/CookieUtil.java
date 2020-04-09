@@ -16,7 +16,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 public class CookieUtil {
-    public static final String COOKIE_DOMAIN = ".localserver.com";
+    /**
+     * 注意前面不要加".",老版本喜欢在前边加一个".",tomcat8.5以后不能再加"."
+     */
+    public static final String COOKIE_DOMAIN = "localserver.com";
+//    public static final String COOKIE_DOMAIN = "localhost";
     public static final String COOKIE_NAME = "haitao_login_token";
 
     /**
@@ -47,7 +51,7 @@ public class CookieUtil {
         if(cks != null) {
             for(Cookie ck : cks) {
                 if(COOKIE_NAME.equals(ck.getName())) {
-                    log.info("return cookie name:{}, cookie value:{}", ck.getName(), ck.getValue());
+                    log.info("read cookie name:{}, cookie value:{}", ck.getName(), ck.getValue());
                     return ck.getValue();
                 }
             }

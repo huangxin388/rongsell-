@@ -91,6 +91,7 @@ public class JsonUtil {
             }
             return objectMapper.readValue(str, clazz);
         } catch (Exception e) {
+            log.info("解析失败的字符串为:" + str);
             log.warn("read string to object error", e);
             return null;
         }
@@ -128,7 +129,6 @@ public class JsonUtil {
      */
     public static <T> T string2Obj(String str, Class<?> collectionClass, Class<?>... classes) {
         JavaType javaType = objectMapper.getTypeFactory().constructParametricType(collectionClass, classes);
-
         try {
             return objectMapper.readValue(str, javaType);
         } catch (Exception e) {
@@ -138,20 +138,5 @@ public class JsonUtil {
     }
 
 //    public static void main(String[] args) {
-//        List<User> userList = new ArrayList<>();
-//        User user1 = new User();
-//        user1.setId(1);
-//        user1.setUsername("test1");
-//        User user2 = new User();
-//        user2.setId(2);
-//        user2.setUsername("test2");
-//        userList.add(user1);
-//        userList.add(user2);
-//        String userListStr = obj2StringPretty(userList);
-//        log.info("userListStr", userListStr);
-//        log.info("=========================");
-//        List<User> list = string2Obj(userListStr, new TypeReference<List<User>>(){});
-//        List<User> list2 = string2Obj(userListStr, List.class, User.class);
-//        log.info("=================");
 //    }
 }

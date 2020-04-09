@@ -30,7 +30,7 @@ public class TestController {
     @RequestMapping("/test")
     @ResponseBody
     public ServerResponse<String> test() {
-        return ServerResponse.getSuccess("测试2");
+        return ServerResponse.getSuccess("测试1");
     }
 
     @GetMapping("/testjedis")
@@ -46,7 +46,7 @@ public class TestController {
     public String writeCookie(HttpServletResponse response, HttpServletRequest request) {
         CookieUtil.writeLoginCookie(response, request.getSession().getId());
         redisUtil.setex(request.getSession().getId(), Const.RedisCacheExTime.REDIS_SESSION_EX_TIME, "test save");
-        return "写cookie22222";
+        return "写cookie11111";
     }
 
     @GetMapping("/readcookie")
@@ -54,7 +54,7 @@ public class TestController {
     public String readCookie(HttpServletRequest request) {
         String value = CookieUtil.readLoginCookie(request);
         log.info("cookie value:{}", value);
-        return value + "22222";
+        return value + "11111";
     }
 
     @GetMapping("/deletecookie")
@@ -64,6 +64,6 @@ public class TestController {
         String value = CookieUtil.readLoginCookie(request);
         log.info("delete cookie");
         redisUtil.del(value);
-        return "删除cookie22222";
+        return "删除cookie11111";
     }
 }

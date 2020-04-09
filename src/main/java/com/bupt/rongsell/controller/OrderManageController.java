@@ -2,10 +2,13 @@ package com.bupt.rongsell.controller;
 
 import com.bupt.rongsell.common.Const;
 import com.bupt.rongsell.common.ServerResponse;
+import com.bupt.rongsell.config.cache.RedisUtil;
 import com.bupt.rongsell.entity.User;
 import com.bupt.rongsell.enums.ResponseCode;
 import com.bupt.rongsell.service.OrderService;
 import com.bupt.rongsell.service.UserService;
+import com.bupt.rongsell.utils.CookieUtil;
+import com.bupt.rongsell.utils.JsonUtil;
 import com.bupt.rongsell.vo.OrderVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +34,21 @@ public class OrderManageController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private RedisUtil redisUtil;
+
     @PostMapping("/managegetorderall")
     public ServerResponse<PageInfo> manageGetOrderAll(HttpServletRequest request,
                                                       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                       @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user == null) {
             return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
         }
@@ -51,7 +64,14 @@ public class OrderManageController {
     public ServerResponse<PageInfo> manageOrderSearch(HttpServletRequest request, Long orderNo,
                                                      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                      @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user == null) {
             return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
         }
@@ -65,7 +85,14 @@ public class OrderManageController {
 
     @PostMapping("/managesendgoods")
     public ServerResponse<String> manageSendGoods(HttpServletRequest request, Long orderNo) {
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user == null) {
             return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
         }
