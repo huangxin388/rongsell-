@@ -2,7 +2,7 @@
 server:
   servlet:
     context-path: /rongsell
-  port: 8080
+  port: 9080
 
 spring:
   datasource:
