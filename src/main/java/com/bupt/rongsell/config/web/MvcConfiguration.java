@@ -2,6 +2,7 @@ package com.bupt.rongsell.config.web;
 
 
 import com.bupt.rongsell.filter.CrossFilter;
+import com.bupt.rongsell.filter.SessionExpireFilter;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -57,12 +58,15 @@ public class MvcConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     }
 
     @Bean
-    public FilterRegistrationBean testFilterRegistration() {
+    public FilterRegistrationBean crossFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
+        // 跨域
         registration.setFilter(new CrossFilter());
+        // 重置session过期时间
+        registration.setFilter(new SessionExpireFilter());
         registration.addUrlPatterns("/*"); //
         registration.addInitParameter("paramName", "paramValue"); //
-        registration.setName("testFilter");
+        registration.setName("crossFilter");
         return registration;
     }
 
