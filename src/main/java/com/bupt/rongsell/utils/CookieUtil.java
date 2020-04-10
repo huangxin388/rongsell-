@@ -31,12 +31,12 @@ public class CookieUtil {
     public static void writeLoginCookie(HttpServletResponse response, String token) {
         Cookie cookie = new Cookie(COOKIE_NAME, token);
         cookie.setDomain(COOKIE_DOMAIN);
-        // 不允许脚本读取cookie
-//        cookie.setHttpOnly(true);
-        // cookie的有效期是一年,单位是秒；-1代表永久
-        cookie.setMaxAge(60*60*24*365);
         // 存在根目录
         cookie.setPath("/");
+        // 不允许脚本读取cookie
+        cookie.setHttpOnly(true);
+        // cookie的有效期是一年,单位是秒；-1代表永久
+        cookie.setMaxAge(60*60*24*365);
         response.addCookie(cookie);
         log.info("write cookie,cookie name:{}, cookie value:{}", cookie.getName(), cookie.getValue());
     }

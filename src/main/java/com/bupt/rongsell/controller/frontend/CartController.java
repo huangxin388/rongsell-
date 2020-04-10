@@ -1,4 +1,4 @@
-package com.bupt.rongsell.controller;
+package com.bupt.rongsell.controller.frontend;
 
 import com.bupt.rongsell.common.Const;
 import com.bupt.rongsell.common.ServerResponse;
@@ -74,7 +74,14 @@ public class CartController {
     @PostMapping("deleteProduct")
     public ServerResponse<CartVo> deleteProduct(HttpServletRequest request, String productIds) {
 
-        User user = (User) request.getSession().getAttribute(Const.CURRENT_USER);
+        // 读取cookie中的sessionId值
+        String sessionId = CookieUtil.readLoginCookie(request);
+        if(sessionId == null || "".equals(sessionId.trim())) {
+            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
+        }
+        String userStr = redisUtil.get(sessionId);
+        // 读取redis中存储的用户信息，并将其反序列化为User对象
+        User user = JsonUtil.string2Obj(userStr, User.class);
         if(user == null) {
             return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
         }

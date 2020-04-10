@@ -1,4 +1,9 @@
 # dev
+# 切换到生产环境需要修改数据库配置，关闭SQL语句打印
+# 修改写cookie时的domain
+# 打开全局异常处理器，ExceptionResolver
+# spring boot中如何处理全局异常，component,configuration和静态util类的区别
+# sessionExpireFilter问题
 server:
   servlet:
     context-path: /rongsell
@@ -38,7 +43,9 @@ spring:
     #useGlobalDataSourceStat: true
   redis:
     host: 116.62.50.7
+    host2: 116.62.50.1
     port: 6379
+    port2: 6380
     password: aliyun$%^
     timeout: 2000
     jedis:

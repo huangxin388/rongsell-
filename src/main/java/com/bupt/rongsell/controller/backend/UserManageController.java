@@ -1,4 +1,4 @@
-package com.bupt.rongsell.controller;
+package com.bupt.rongsell.controller.backend;
 
 import com.bupt.rongsell.common.Const;
 import com.bupt.rongsell.common.ServerResponse;

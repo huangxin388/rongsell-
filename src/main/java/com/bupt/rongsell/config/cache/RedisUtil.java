@@ -43,7 +43,6 @@ public class RedisUtil {
         try {
             jedis = jedisPool.getResource();
             value = jedis.get(key);
-            logger.info(value);
         } catch (Exception e) {
             logger.error(e.getMessage());
         } finally {

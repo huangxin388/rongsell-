@@ -1,4 +1,4 @@
-package com.bupt.rongsell.controller;
+package com.bupt.rongsell.controller.frontend;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
