@@ -109,4 +109,19 @@ public interface OrderMapper {
     List<Order> selectByUserId(Integer userId);
 
     List<Order> selectAll();
+
+    /**
+     * 关闭订单时根据创建时间查询订单状态
+     * @param status
+     * @param date
+     * @return
+     */
+    List<Order> selectOrderStatusByCreateTime(@Param("status") int status, @Param("date") String date);
+
+    /**
+     * 根据id关闭订单
+     * @param orderId
+     * @return
+     */
+    int closeOrderByOrderId(int orderId);
 }

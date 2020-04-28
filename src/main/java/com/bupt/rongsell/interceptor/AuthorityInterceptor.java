@@ -31,6 +31,7 @@ public class AuthorityInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("preHandle");
+
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         String className = handlerMethod.getBean().getClass().getSimpleName();
         String methodName = handlerMethod.getMethod().getName();

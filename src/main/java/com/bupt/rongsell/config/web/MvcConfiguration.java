@@ -11,11 +11,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -67,17 +66,28 @@ public class MvcConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         return new SessionExpireFilter();
     }
 
+    @Bean FilterRegistrationBean loadFilterRegistrationBean() {
+        return new FilterRegistrationBean();
+    }
+
     @Bean
     public FilterRegistrationBean crossFilterRegistration() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
+        FilterRegistrationBean registration = loadFilterRegistrationBean();
         // 跨域
-        registration.setFilter(new CrossFilter());
+        loadFilterRegistrationBean().setFilter(new CrossFilter());
         // 重置session过期时间
-        registration.setFilter(loadSessionExpireFilter());
+//        loadFilterRegistrationBean().setFilter(loadSessionExpireFilter());
         registration.addUrlPatterns("/*");
         registration.addInitParameter("paramName", "paramValue");
         registration.setName("crossFilter");
         return registration;
+    }
+
+    @Bean
+    public CookieSerializer httpSessionIdResolver() {
+        DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
+        cookieSerializer.setSameSite("None");
+        return cookieSerializer;
     }
 
     @Bean

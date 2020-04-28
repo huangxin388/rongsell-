@@ -14,6 +14,10 @@ public class CategoryVo {
         this.name = name;
     }
 
+    public CategoryVo() {
+
+    }
+
     public Integer getId() {
         return id;
     }

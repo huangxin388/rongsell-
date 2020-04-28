@@ -43,5 +43,10 @@ public interface CategoryService {
      */
     ServerResponse<List<CategoryVo>> getRecursiveChildrenCategory(Integer categoryId);
 
+    /**
+     * 获取所有分类信息
+     * @return
+     */
+    ServerResponse<List<CategoryVo>> getAllCategory();
 
 }

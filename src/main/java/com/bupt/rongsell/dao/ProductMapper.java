@@ -135,4 +135,11 @@ public interface ProductMapper {
      * @return
      */
     List<Product> selectProductByNameAndCategoryIds(@Param("name") String name, @Param("categoryIdList") List<CategoryVo> categoryIdList);
+
+    /**
+     * 通过商品id查库存
+     * @param id
+     * @return
+     */
+    Integer selectStockByProductId(Integer id);
 }

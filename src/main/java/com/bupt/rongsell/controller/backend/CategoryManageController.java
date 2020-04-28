@@ -11,10 +11,7 @@ import com.bupt.rongsell.utils.CookieUtil;
 import com.bupt.rongsell.utils.JsonUtil;
 import com.bupt.rongsell.vo.CategoryVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -126,6 +123,10 @@ public class CategoryManageController {
 //            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
 //        }
         return categoryService.getRecursiveChildrenCategory(categoryId);
+    }
+    @GetMapping("/getallcategory")
+    public ServerResponse<List<CategoryVo>> getAllCategory() {
+        return categoryService.getAllCategory();
     }
 
 

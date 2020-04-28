@@ -15,10 +15,7 @@ import com.bupt.rongsell.utils.PropertyUtil;
 import com.bupt.rongsell.vo.ProductDetailVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +27,7 @@ import java.util.Map;
  * @Date 2020/3/19 22:15
  * @Version 1.0
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/manage/product")
 public class ProductManageController {
@@ -50,67 +48,16 @@ public class ProductManageController {
 
     @PostMapping("/productsave")
     public ServerResponse<String> productSave(HttpServletRequest request, Product product) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            return productService.updateOrInsertProduct(product);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
         return productService.updateOrInsertProduct(product);
     }
 
     @PostMapping("/setsalestatus")
     public ServerResponse<String> setSaleStatus(HttpServletRequest request, Integer productId, Integer status) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            return productService.setSaleStatus(productId, status);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
         return productService.setSaleStatus(productId, status);
     }
 
     @PostMapping("/getproductdetail")
     public ServerResponse<ProductDetailVo> getProductDetail(HttpServletRequest request, Integer productId) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            return productService.manageProductDetail(productId);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
         return productService.manageProductDetail(productId);
     }
 
@@ -118,23 +65,6 @@ public class ProductManageController {
     public ServerResponse<PageInfo> getProductList(HttpServletRequest request,
                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                    @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            return productService.getProductList(pageNum, pageSize);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
         return productService.getProductList(pageNum, pageSize);
     }
 
@@ -144,23 +74,6 @@ public class ProductManageController {
                                                    @RequestParam(value = "productId", required = false) Integer productId,
                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                    @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            return productService.searchProduct(productName, productId, pageNum, pageSize);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
         return productService.searchProduct(productName, productId, pageNum, pageSize);
     }
 
@@ -169,27 +82,6 @@ public class ProductManageController {
                                                 @RequestParam("imageFile") MultipartFile imageFile) {
         String path = request.getSession().getServletContext().getRealPath("upload");
         Map<String, String> modelMap = new HashMap();
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            String targetFileName = fileService.uploadImage(imageFile, path);
-//            String url = PropertyUtil.getProperty("ftp.server.http.prefix") + targetFileName;
-//            modelMap.put("uri", targetFileName);
-//            modelMap.put("url", url);
-//            return ServerResponse.getSuccess(modelMap);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
         String targetFileName = fileService.uploadImage(imageFile, path);
         String url = PropertyUtil.getProperty("ftp.server.http.prefix") + targetFileName;
         modelMap.put("uri", targetFileName);
@@ -199,27 +91,6 @@ public class ProductManageController {
 
     @PostMapping("/deleteimage")
     public ServerResponse deleteImage(HttpServletRequest request, String fileName) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            Boolean deleteResult = fileService.deleteImage(fileName);
-//            if(deleteResult) {
-//                return ServerResponse.getSuccess();
-//            }
-//            return ServerResponse.getFailure();
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
         Boolean deleteResult = fileService.deleteImage(fileName);
         if(deleteResult) {
             return ServerResponse.getSuccess();

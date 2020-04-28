@@ -25,7 +25,9 @@ import com.bupt.rongsell.vo.OrderVo;
 import com.bupt.rongsell.vo.ShippingVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -569,6 +571,30 @@ public class OrderServiceImpl implements OrderService {
          }
          return ServerResponse.getFailure();
      }
+
+    @Override
+    public void closeOrder(int hour) {
+        Date closeDateTime = DateUtils.addHours(new Date(), -hour);
+        List<Order> orderList = orderMapper.selectOrderStatusByCreateTime(Const.OrderStatusEnum.NO_PAY.getCode(), DatetimeUtil.dateToStr(closeDateTime));
+        for(Order order : orderList) {
+            List<OrderItem> orderItemList = orderItemMapper.selectByOrderNo(order.getOrderNo());
+            for(OrderItem orderItem : orderItemList) {
+                // 这里使用了悲观锁，一定要使用确定的主键作为条件进行查询，防止锁表
+                Integer stock = productMapper.selectStockByProductId(orderItem.getProductId());
+                // 如果订单中的某些商品被删除了
+                if(stock == null) {
+                    continue;
+                }
+                // 更新库存
+                Product product = new Product();
+                product.setId(orderItem.getProductId());
+                product.setStock(stock + orderItem.getQuantity());
+                productMapper.updateByPrimaryKeySelective(product);
+            }
+            orderMapper.closeOrderByOrderId(order.getId());
+            log.info("关闭订单,getOrderNo：{}", order.getOrderNo());
+        }
+    }
 
 
 }

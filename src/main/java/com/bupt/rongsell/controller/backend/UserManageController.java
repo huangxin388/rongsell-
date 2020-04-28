@@ -9,6 +9,7 @@ import com.bupt.rongsell.utils.CookieUtil;
 import com.bupt.rongsell.utils.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Date 2020/3/17 18:36
  * @Version 1.0
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/manage/user")
 @Slf4j

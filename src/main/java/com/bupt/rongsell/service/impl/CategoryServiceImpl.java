@@ -99,4 +99,19 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return categorySet;
     }
+
+    @Override
+    public ServerResponse<List<CategoryVo>> getAllCategory() {
+        List<Category> categoryList = categoryMapper.selectByExample(null);
+        List<CategoryVo> categoryVoList = new ArrayList<>();
+        if(categoryList.size() > 0) {
+            for(Category category : categoryList) {
+                CategoryVo categoryVo = new CategoryVo(category.getId(), category.getName());
+                categoryVoList.add(categoryVo);
+            }
+        } else {
+            return ServerResponse.getFailureByMessage("未找到分类信息");
+        }
+        return ServerResponse.getSuccess(categoryVoList);
+    }
 }

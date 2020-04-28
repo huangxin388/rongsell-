@@ -34,6 +34,13 @@ public class Const {
         String LIMIT_NUM_SUCCESS = "LIMIT_NUM_SUCCESS";
     }
 
+    public interface REDIS_LOCK {
+        /**
+         * 关闭订单的分布式锁
+         */
+        String CLOSE_ORDER_TASK_LOCK = "CLOSE_ORDER_TASK_LOCK";
+    }
+
     public enum OrderStatusEnum {
 
         CANCEL(0, "已取消"),
