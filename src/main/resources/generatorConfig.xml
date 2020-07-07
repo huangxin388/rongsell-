@@ -48,7 +48,7 @@
             <property name="rowHandler" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="mmall_pay_info" domainObjectName="PayInfo">
+        <table tableName="t_sku_use" domainObjectName="Sku">
             <property name="useActualColumnNames" value="false"/>
             <!-- 插入时是否自动生成主键 -->
              <generatedKey column="id" sqlStatement="MySql" identity="true"/>

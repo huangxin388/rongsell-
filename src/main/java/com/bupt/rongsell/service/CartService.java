@@ -2,6 +2,7 @@ package com.bupt.rongsell.service;
 
 import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.vo.CartVo;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
  * @Author huang xin
@@ -49,7 +50,7 @@ public interface CartService {
      * @param check
      * @return
      */
-    ServerResponse<CartVo> selectCheckedOrUnCheckedAll(Integer userId, Integer check);
+    ServerResponse<CartVo> selectCheckedOrUnCheckedAll(Integer userId, Boolean check);
 
     /**
      * 购物车中单一商品的选择
@@ -58,7 +59,7 @@ public interface CartService {
      * @param check
      * @return
      */
-    ServerResponse<CartVo> setProductCheckStatus(Integer userId, Integer productId, Integer check);
+    ServerResponse<CartVo> setProductCheckStatus(Integer userId, Integer productId, Boolean check);
 
     /**
      * 获取购物车中的商品数量

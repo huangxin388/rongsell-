@@ -36,41 +36,33 @@ public class ProductManageController {
     private ProductService productService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private FileService fileService;
-
-    @Autowired
-    private RedisUtil redisUtil;
 
 
 
     @PostMapping("/productsave")
-    public ServerResponse<String> productSave(HttpServletRequest request, Product product) {
+    public ServerResponse<String> productSave(Product product) {
         return productService.updateOrInsertProduct(product);
     }
 
     @PostMapping("/setsalestatus")
-    public ServerResponse<String> setSaleStatus(HttpServletRequest request, Integer productId, Integer status) {
+    public ServerResponse<String> setSaleStatus(Integer productId, Integer status) {
         return productService.setSaleStatus(productId, status);
     }
 
     @PostMapping("/getproductdetail")
-    public ServerResponse<ProductDetailVo> getProductDetail(HttpServletRequest request, Integer productId) {
+    public ServerResponse<ProductDetailVo> getProductDetail(Integer productId) {
         return productService.manageProductDetail(productId);
     }
 
     @PostMapping("/getproductlist")
-    public ServerResponse<PageInfo> getProductList(HttpServletRequest request,
-                                                   @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+    public ServerResponse<PageInfo> getProductList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                    @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         return productService.getProductList(pageNum, pageSize);
     }
 
     @PostMapping("/searchproduct")
-    public ServerResponse<PageInfo> searchProduct(HttpServletRequest request,
-                                                   @RequestParam(value = "productName", required = false) String productName,
+    public ServerResponse<PageInfo> searchProduct(@RequestParam(value = "productName", required = false) String productName,
                                                    @RequestParam(value = "productId", required = false) Integer productId,
                                                    @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                    @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
@@ -90,7 +82,7 @@ public class ProductManageController {
     }
 
     @PostMapping("/deleteimage")
-    public ServerResponse deleteImage(HttpServletRequest request, String fileName) {
+    public ServerResponse deleteImage(String fileName) {
         Boolean deleteResult = fileService.deleteImage(fileName);
         if(deleteResult) {
             return ServerResponse.getSuccess();

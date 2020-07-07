@@ -27,8 +27,8 @@ public class Const {
     }
 
     public interface Cart {
-        int PRODUCT_CHECKED = 1;
-        int PRODUCT_UNCHECKED = 0;
+        boolean PRODUCT_CHECKED = true;
+        boolean PRODUCT_UNCHECKED = false;
 
         String LIMIT_NUM_FAIL = "LIMIT_NUM_FAIL";
         String LIMIT_NUM_SUCCESS = "LIMIT_NUM_SUCCESS";

@@ -26,13 +26,15 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
-    public ServerResponse<String> addCategory(Integer parentId, String categoryName) {
+    public ServerResponse<String> addCategory(Integer parentId, String categoryName, Boolean ifParent) {
         if(parentId == null || categoryName == null || "".equals(categoryName)) {
             return ServerResponse.getFailureByMessage("参数错误");
         }
         Category category = new Category();
         category.setName(categoryName);
+        category.setStatus(true);
         category.setParentId(parentId);
+        category.setIfParent(ifParent);
         category.setCreateTime(new Date());
         category.setUpdateTime(new Date());
         int resultCount = categoryMapper.insert(category);

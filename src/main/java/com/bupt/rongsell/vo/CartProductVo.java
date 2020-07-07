@@ -19,7 +19,7 @@ public class CartProductVo {
     private Integer productStatus;
     private BigDecimal productTotalPrice;
     private Integer productStock;
-    private Integer productChecked; // 此商品是否被勾选
+    private Boolean productChecked; // 此商品是否被勾选
 
     private String limitQuantity; // 限制数量的一个返回结果
 
@@ -111,11 +111,11 @@ public class CartProductVo {
         this.productStock = productStock;
     }
 
-    public Integer getProductChecked() {
+    public Boolean getProductChecked() {
         return productChecked;
     }
 
-    public void setProductChecked(Integer productChecked) {
+    public void setProductChecked(Boolean productChecked) {
         this.productChecked = productChecked;
     }
 

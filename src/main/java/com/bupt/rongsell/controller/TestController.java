@@ -3,17 +3,17 @@ package com.bupt.rongsell.controller;
 import com.bupt.rongsell.common.Const;
 import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.config.cache.RedisUtil;
+import com.bupt.rongsell.dao.HobbyMapper;
+import com.bupt.rongsell.entity.Hobby;
 import com.bupt.rongsell.utils.CookieUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @Author huang xin
@@ -26,6 +26,8 @@ public class TestController {
 
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private HobbyMapper hobbyMapper;
 
     @RequestMapping("/test")
     @ResponseBody
@@ -66,4 +68,14 @@ public class TestController {
         redisUtil.del(value);
         return "删除cookie11111";
     }
+
+    @GetMapping("/gethobby")
+    @ResponseBody
+    public List<Hobby> getHobby() {
+        List<Hobby> hobbyList = hobbyMapper.selectHobbys();
+        return hobbyList;
+    }
+
+
+
 }

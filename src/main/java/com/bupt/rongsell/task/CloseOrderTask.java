@@ -19,7 +19,7 @@ import javax.annotation.PreDestroy;
  */
 @Component
 @Slf4j
-@EnableScheduling
+//@EnableScheduling
 public class CloseOrderTask {
     @Autowired
     private OrderService orderService;

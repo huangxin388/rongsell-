@@ -3,12 +3,8 @@ package com.bupt.rongsell.controller.backend;
 import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.config.cache.RedisUtil;
 import com.bupt.rongsell.entity.Category;
-import com.bupt.rongsell.entity.User;
-import com.bupt.rongsell.enums.ResponseCode;
 import com.bupt.rongsell.service.CategoryService;
 import com.bupt.rongsell.service.UserService;
-import com.bupt.rongsell.utils.CookieUtil;
-import com.bupt.rongsell.utils.JsonUtil;
 import com.bupt.rongsell.vo.CategoryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +32,7 @@ public class CategoryManageController {
 
     @PostMapping("/addcategory")
     public ServerResponse<String> addCategory(@RequestParam(value = "parentId", defaultValue = "0") Integer parentId,
+                                              @RequestParam(value = "ifParent", defaultValue = "true") Boolean ifParent,
                                               String categoryName, HttpServletRequest request) {
 //        // 读取cookie中的sessionId值
 //        String sessionId = CookieUtil.readLoginCookie(request);
@@ -54,7 +51,7 @@ public class CategoryManageController {
 //        } else {
 //            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
 //        }
-        return categoryService.addCategory(parentId, categoryName);
+        return categoryService.addCategory(parentId, categoryName, ifParent);
     }
 
     @PostMapping("/changecategoryname")

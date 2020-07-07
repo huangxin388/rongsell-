@@ -19,7 +19,7 @@ public interface CategoryService {
      * @param categoryName
      * @return
      */
-    ServerResponse<String> addCategory(Integer parentId, String categoryName);
+    ServerResponse<String> addCategory(Integer parentId, String categoryName, Boolean ifParent);
 
     /**
      * 更新品类名字

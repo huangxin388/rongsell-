@@ -67,6 +67,9 @@ mybatis:
   mapper-locations: classpath:/mapper/*.xml
   #加载mapper实体类
   type-aliases-package: com.bupt.rongsell.entity
+  #json转换类
+  type-handlers-package: com.bupt.rongsell.config.dao.JsonTypeHandler
+  mybatis.type-handlers-package: com.bupt.rongsell.config.dao.JsonTypeHandler
 
 #pageHelper分页配置
 pagehelper:

@@ -89,14 +89,14 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public ServerResponse<CartVo> selectCheckedOrUnCheckedAll(Integer userId, Integer check) {
+    public ServerResponse<CartVo> selectCheckedOrUnCheckedAll(Integer userId, Boolean check) {
         cartMapper.checkedOrUnCheckedProduct(userId, check);
         return getCartInfo(userId);
     }
 
 
     @Override
-    public ServerResponse<CartVo> setProductCheckStatus(Integer userId, Integer productId, Integer check) {
+    public ServerResponse<CartVo> setProductCheckStatus(Integer userId, Integer productId, Boolean check) {
         cartMapper.setProductCheckStatus(userId, productId, check);
         return getCartInfo(userId);
     }
