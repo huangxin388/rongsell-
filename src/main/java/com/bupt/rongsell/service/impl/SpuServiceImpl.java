@@ -26,11 +26,11 @@ public class SpuServiceImpl implements SpuService {
     private GroupMapper groupMapper;
 
     @Override
-    public ServerResponse<List<Spu>> getSpus(Spu spu) {
+    public ServerResponse<List<Spu>> getSpusBySpgId(Spu spu) {
         SpuExample spuExample = new SpuExample();
         SpuExample.Criteria criteria = spuExample.createCriteria();
-        if(spu.getCategoryId() != null) {
-            criteria.andCategoryIdEqualTo(spu.getCategoryId());
+        if(spu.getSpgId() != null) {
+            criteria.andSpgIdEqualTo(spu.getSpgId());
         }
         if(spu.getId() != null) {
             criteria.andIdEqualTo(spu.getId());

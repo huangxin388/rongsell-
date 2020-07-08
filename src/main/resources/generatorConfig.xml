@@ -48,7 +48,7 @@
             <property name="rowHandler" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="t_sku_use" domainObjectName="Sku">
+        <table tableName="t_spec_group_use" domainObjectName="Group">
             <property name="useActualColumnNames" value="false"/>
             <!-- 插入时是否自动生成主键 -->
              <generatedKey column="id" sqlStatement="MySql" identity="true"/>

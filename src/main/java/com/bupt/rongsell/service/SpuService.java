@@ -17,5 +17,5 @@ public interface SpuService {
      * @param spu
      * @return
      */
-    ServerResponse<List<Spu>> getSpus(Spu spu);
+    ServerResponse<List<Spu>> getSpusBySpgId(Spu spu);
 }

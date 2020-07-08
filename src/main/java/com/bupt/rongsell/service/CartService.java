@@ -2,7 +2,6 @@ package com.bupt.rongsell.service;
 
 import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.vo.CartVo;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 /**
  * @Author huang xin

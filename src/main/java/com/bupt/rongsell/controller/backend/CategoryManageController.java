@@ -22,103 +22,29 @@ import java.util.List;
 public class CategoryManageController {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private RedisUtil redisUtil;
 
     @PostMapping("/addcategory")
     public ServerResponse<String> addCategory(@RequestParam(value = "parentId", defaultValue = "0") Integer parentId,
                                               @RequestParam(value = "ifParent", defaultValue = "true") Boolean ifParent,
-                                              String categoryName, HttpServletRequest request) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            return categoryService.addCategory(parentId, categoryName);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
+                                              String categoryName) {
         return categoryService.addCategory(parentId, categoryName, ifParent);
     }
 
     @PostMapping("/changecategoryname")
-    public ServerResponse<String> changeCategoryName(Integer categoryId, String categoryName, HttpServletRequest request) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            return categoryService.updateCategoryName(categoryId, categoryName);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
+    public ServerResponse<String> changeCategoryName(Integer categoryId, String categoryName) {
         return categoryService.updateCategoryName(categoryId, categoryName);
     }
 
     @PostMapping("/getparallelchildrencategory")
-    public ServerResponse<List<Category>> getParallelChildrenCategory(HttpServletRequest request,
-                                                                      @RequestParam(value = "parentId", defaultValue = "0") Integer parentId) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            return categoryService.getParallelChildrenCategory(parentId);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
+    public ServerResponse<List<Category>> getParallelChildrenCategory(@RequestParam(value = "parentId",
+            defaultValue = "0") Integer parentId) {
         return categoryService.getParallelChildrenCategory(parentId);
     }
 
     @PostMapping("/getrecursivelchildrencategory")
-    public ServerResponse<List<CategoryVo>> getRecursiveChildrenCategory(HttpServletRequest request,
-                                                                         @RequestParam(value = "categoryId", defaultValue = "0") Integer categoryId) {
-//        // 读取cookie中的sessionId值
-//        String sessionId = CookieUtil.readLoginCookie(request);
-//        if(sessionId == null || "".equals(sessionId.trim())) {
-//            return ServerResponse.getFailureByMessage("用户未登录，无法获取当前用户信息");
-//        }
-//        String userStr = redisUtil.get(sessionId);
-//        // 读取redis中存储的用户信息，并将其反序列化为User对象
-//        User user = JsonUtil.string2Obj(userStr, User.class);
-//        if(user == null) {
-//            return ServerResponse.getFailureByCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，请登录");
-//        }
-//        if(userService.checkAdminRole(user).isSuccess()) {
-//            // 是管理员
-//            return categoryService.getRecursiveChildrenCategory(categoryId);
-//        } else {
-//            return ServerResponse.getFailureByMessage("权限不够，管理员才能进行此操作");
-//        }
+    public ServerResponse<List<CategoryVo>> getRecursiveChildrenCategory(@RequestParam(value = "categoryId",
+            defaultValue = "0") Integer categoryId) {
         return categoryService.getRecursiveChildrenCategory(categoryId);
     }
     @GetMapping("/getallcategory")

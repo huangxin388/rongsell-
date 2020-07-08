@@ -23,6 +23,6 @@ public class SpuController {
 
     @PostMapping("/getspus")
     public ServerResponse<List<Spu>> getSpus(Spu spu) {
-        return spuService.getSpus(spu);
+        return spuService.getSpusBySpgId(spu);
     }
 }
