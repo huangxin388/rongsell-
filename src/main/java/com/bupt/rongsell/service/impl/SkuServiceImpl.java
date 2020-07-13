@@ -190,6 +190,11 @@ public class SkuServiceImpl implements SkuService {
         return ServerResponse.getSuccess(pageInfo);
     }
 
+    @Override
+    public ServerResponse<Integer> getSpgIdBySkuId(Integer skuId) {
+        return null;
+    }
+
     private SkuListVo assembleSkuListVo(Sku sku) {
         SkuListVo skuListVo = new SkuListVo();
         skuListVo.setId(sku.getId());

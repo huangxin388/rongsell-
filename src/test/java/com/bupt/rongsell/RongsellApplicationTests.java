@@ -2,7 +2,9 @@ package com.bupt.rongsell;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bupt.rongsell.dao.HobbyMapper;
+import com.bupt.rongsell.dao.SkuMapper;
 import com.bupt.rongsell.entity.Hobby;
+import com.bupt.rongsell.entity.Sku;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +16,9 @@ class RongsellApplicationTests {
 
     @Autowired
     private HobbyMapper hobbyMapper;
+
+    @Autowired
+    private SkuMapper skuMapper;
 
     @Test
     void contextLoads() {
@@ -37,7 +42,15 @@ class RongsellApplicationTests {
         hobby.setHuahua(jsonObject);
         hobby.setId(35);
         hobbyMapper.insertHobby(hobby);
+    }
 
+    @Test
+    public void testCustomer() {
+        List<Sku> skuList = skuMapper.customerSelectSku("美的");
+        System.out.println(skuList.size());
+        for(Sku sku : skuList) {
+            System.out.println(sku.getTitle());
+        }
     }
 
 }
