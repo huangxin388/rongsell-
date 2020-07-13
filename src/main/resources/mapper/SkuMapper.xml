@@ -489,4 +489,38 @@
       last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectSkuByNameAndCategoryIds" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_sku_use
+    where status=1
+    <if test="name != null">
+      and `name` like #{name}
+    </if>
+    <if test="categoryIdList != null">
+      and category_id in
+      <foreach item="item" index="index" open="(" separator="," close=")" collection="categoryIdList">
+        #{item.id}
+      </foreach>
+    </if>
+  </select>
+
+  <select id="selectSkuList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_sku_use
+  </select>
+
+  <select id="customerSelectSku" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_sku_use
+    <where>
+    status = 1
+      <if test="keyworld != null">
+        and title like '%${keyworld}%'
+      </if>
+    </where>
+  </select>
 </mapper>

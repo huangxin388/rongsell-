@@ -3,6 +3,8 @@ package com.bupt.rongsell.dao;
 import com.bupt.rongsell.entity.Sku;
 import com.bupt.rongsell.entity.SkuExample;
 import java.util.List;
+
+import com.bupt.rongsell.vo.CategoryVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -125,4 +127,19 @@ public interface SkuMapper {
      * @return
      */
     List<Sku> selectSkuList();
+
+    /**
+     * 根据商品名称和所属分类查询商品
+     * @param name
+     * @param categoryIdList
+     * @return
+     */
+    List<Sku> selectSkuByNameAndCategoryIds(@Param("name") String name, @Param("categoryIdList") List<CategoryVo> categoryIdList);
+
+    /**
+     * 普通用户根据关键词查询所有在售状态的商品
+     * @param keyworld
+     * @return
+     */
+    List<Sku> customerSelectSku(String keyworld);
 }

@@ -11,6 +11,8 @@ import com.bupt.rongsell.utils.DatetimeUtil;
 import com.bupt.rongsell.utils.PropertyUtil;
 import com.bupt.rongsell.vo.ProductDetailVo;
 import com.bupt.rongsell.vo.ProductListVo;
+import com.bupt.rongsell.vo.SkuDetailVo;
+import com.bupt.rongsell.vo.SkuListVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -89,7 +91,7 @@ public class SkuServiceImpl implements SkuService {
     }
 
     @Override
-    public ServerResponse<ProductDetailVo> manageSkuDetail(Integer skuId) {
+    public ServerResponse<SkuDetailVo> manageSkuDetail(Integer skuId) {
         if(skuId == null) {
             return ServerResponse.getFailureByMessage("参数错误");
         }
@@ -97,21 +99,21 @@ public class SkuServiceImpl implements SkuService {
         if(sku == null) {
             return ServerResponse.getFailureByMessage("商品已下架或删除");
         }
-        ProductDetailVo productDetailVo = assembleSkuDetailVo(sku);
-        return ServerResponse.getSuccess(productDetailVo);
+        SkuDetailVo skuDetailVo = assembleSkuDetailVo(sku);
+        return ServerResponse.getSuccess(skuDetailVo);
     }
 
     @Override
     public ServerResponse<PageInfo> getSkuList(int pageNum, int pageSize) {
         Page<?> page = PageHelper.startPage(pageNum, pageSize);
         List<Sku> skuList = skuMapper.selectSkuList();
-        List<ProductListVo> productListVoList = new ArrayList<>();
+        List<SkuListVo> skuListVoList = new ArrayList<>();
         for(Sku skuItem : skuList) {
-            ProductListVo productListVo = assembleSkuListVo(skuItem);
-            productListVoList.add(productListVo);
+            SkuListVo skuListVo = assembleSkuListVo(skuItem);
+            skuListVoList.add(skuListVo);
         }
         PageInfo pageInfo = new PageInfo(skuList);
-        pageInfo.setList(productListVoList);
+        pageInfo.setList(skuListVoList);
 
         return ServerResponse.getSuccess(pageInfo);
     }
@@ -129,19 +131,19 @@ public class SkuServiceImpl implements SkuService {
         }
         Page<?> page = PageHelper.startPage(pageNum, pageSize);
         List<Sku> skuList = skuMapper.selectByExample(skuExample);
-        List<ProductListVo> productListVoList = new ArrayList<>();
+        List<SkuListVo> skuVoList = new ArrayList<>();
         for(Sku skuItem : skuList) {
-            ProductListVo productListVo = assembleSkuListVo(skuItem);
-            productListVoList.add(productListVo);
+            SkuListVo skuListVo = assembleSkuListVo(skuItem);
+            skuVoList.add(skuListVo);
         }
         PageInfo pageInfo = new PageInfo(skuList);
-        pageInfo.setList(productListVoList);
+        pageInfo.setList(skuVoList);
 
         return ServerResponse.getSuccess(pageInfo);
     }
 
     @Override
-    public ServerResponse<ProductDetailVo> getSkuDetail(Integer skuId) {
+    public ServerResponse<SkuDetailVo> getSkuDetail(Integer skuId) {
         if(skuId == null) {
             return ServerResponse.getFailureByMessage("参数错误");
         }
@@ -152,53 +154,52 @@ public class SkuServiceImpl implements SkuService {
         if(sku.getStatus() != ProductStatusEnum.ON_SALE.getCode()) {
             return ServerResponse.getFailureByMessage("商品已下架或删除");
         }
-        ProductDetailVo productDetailVo = assembleProductDetailVo(sku);
-        return ServerResponse.getSuccess(productDetailVo);
+        SkuDetailVo skuDetailVo = assembleSkuDetailVo(sku);
+        return ServerResponse.getSuccess(skuDetailVo);
     }
 
-    private ProductDetailVo assembleSkuDetailVo(Sku sku) {
-        ProductDetailVo productDetailVo = new ProductDetailVo();
-        productDetailVo.setId(sku.getId());
-        productDetailVo.setSubTitle(sku.getSubTitle());
-        productDetailVo.setPrice(sku.getPrice());
-        productDetailVo.setMainImage(sku.getMainImage());
-        productDetailVo.setSubImages(sku.getSubImages());
-        productDetailVo.setDetail(sku.getDetail());
-        productDetailVo.setName(sku.getTitle());
-        productDetailVo.setStatus(sku.getStatus());
-        productDetailVo.setStock(sku.getStock());
-        productDetailVo.setImageHost(PropertyUtil.getProperty("ftp.server.http.prefix", "http://img.mmall.com/"));
-        productDetailVo.setCreateTime(DatetimeUtil.dateToStr(sku.getCreateTime()));
-        productDetailVo.setUpdateTime(DatetimeUtil.dateToStr(sku.getLastUpdateTime()));
-        return productDetailVo;
+
+    private SkuDetailVo assembleSkuDetailVo(Sku sku) {
+        SkuDetailVo skuDetailVo = new SkuDetailVo();
+        skuDetailVo.setId(sku.getId());
+        skuDetailVo.setSubTitle(sku.getSubTitle());
+        skuDetailVo.setPrice(sku.getPrice());
+        skuDetailVo.setMainImage(sku.getMainImage());
+        skuDetailVo.setSubImages(sku.getSubImages());
+        skuDetailVo.setDetail(sku.getDetail());
+        skuDetailVo.setName(sku.getTitle());
+        skuDetailVo.setStatus(sku.getStatus());
+        skuDetailVo.setStock(sku.getStock());
+        skuDetailVo.setImageHost(PropertyUtil.getProperty("ftp.server.http.prefix", "http://img.mmall.com/"));
+        skuDetailVo.setCreateTime(DatetimeUtil.dateToStr(sku.getCreateTime()));
+        skuDetailVo.setUpdateTime(DatetimeUtil.dateToStr(sku.getLastUpdateTime()));
+        return skuDetailVo;
     }
 
-    private ProductListVo assembleSkuListVo(Sku sku) {
-        ProductListVo productListVo = new ProductListVo();
-        productListVo.setId(sku.getId());
-        productListVo.setMainImage(sku.getMainImage());
-        productListVo.setName(sku.getTitle());
-        productListVo.setSubTitle(sku.getSubTitle());
-        productListVo.setStatus(sku.getStatus());
-        productListVo.setPrice(sku.getPrice());
-        productListVo.setImageHost(PropertyUtil.getProperty("ftp.server.http.prefix", "http://img.mmall.com/"));
-        return productListVo;
+    @Override
+    public ServerResponse<PageInfo> getSkuByKeyword(String keyword, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Sku> skuList = skuMapper.customerSelectSku(keyword);
+        List<SkuListVo> skuVoList = new ArrayList<>();
+        for(Sku skuItem : skuList) {
+            SkuListVo skuListVo = assembleSkuListVo(skuItem);
+            skuVoList.add(skuListVo);
+        }
+        PageInfo pageInfo = new PageInfo(skuList);
+        pageInfo.setList(skuVoList);
+        return ServerResponse.getSuccess(pageInfo);
     }
-    private ProductDetailVo assembleProductDetailVo(Sku sku) {
-        ProductDetailVo productDetailVo = new ProductDetailVo();
-        productDetailVo.setId(sku.getId());
-        productDetailVo.setSubTitle(sku.getSubTitle());
-        productDetailVo.setPrice(sku.getPrice());
-        productDetailVo.setMainImage(sku.getMainImage());
-        productDetailVo.setSubImages(sku.getSubImages());
-        productDetailVo.setDetail(sku.getDetail());
-        productDetailVo.setName(sku.getTitle());
-        productDetailVo.setStatus(sku.getStatus());
-        productDetailVo.setStock(sku.getStock());
-        productDetailVo.setImageHost(PropertyUtil.getProperty("ftp.server.http.prefix", "http://img.mmall.com/"));
-        productDetailVo.setCreateTime(DatetimeUtil.dateToStr(sku.getCreateTime()));
-        productDetailVo.setUpdateTime(DatetimeUtil.dateToStr(sku.getLastUpdateTime()));
-        return productDetailVo;
+
+    private SkuListVo assembleSkuListVo(Sku sku) {
+        SkuListVo skuListVo = new SkuListVo();
+        skuListVo.setId(sku.getId());
+        skuListVo.setMainImage(sku.getMainImage());
+        skuListVo.setTitle(sku.getTitle());
+        skuListVo.setSubTitle(sku.getSubTitle());
+        skuListVo.setStatus(sku.getStatus());
+        skuListVo.setPrice(sku.getPrice());
+        skuListVo.setImageHost(PropertyUtil.getProperty("ftp.server.http.prefix", "http://img.mmall.com/"));
+        return skuListVo;
     }
 
 }

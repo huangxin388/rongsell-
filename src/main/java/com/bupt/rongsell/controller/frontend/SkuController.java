@@ -3,10 +3,9 @@ package com.bupt.rongsell.controller.frontend;
 import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.entity.Sku;
 import com.bupt.rongsell.service.SkuService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +24,12 @@ public class SkuController {
     @GetMapping("/getskuinfo")
     public ServerResponse<List<Sku>> getSkuInfo() {
         return skuService.getSkuInfo();
+    }
+
+    @PostMapping("getskulist")
+    public ServerResponse<PageInfo> getSkuList(@RequestParam(value = "keyword", required = false) String keyword,
+                                                   @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                   @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        return skuService.getSkuByKeyword(keyword, pageNum, pageSize);
     }
 }

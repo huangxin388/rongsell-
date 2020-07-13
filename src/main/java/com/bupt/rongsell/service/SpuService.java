@@ -2,6 +2,7 @@ package com.bupt.rongsell.service;
 
 import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.entity.Spu;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 

@@ -3,6 +3,7 @@ package com.bupt.rongsell.service;
 import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.entity.Sku;
 import com.bupt.rongsell.vo.ProductDetailVo;
+import com.bupt.rongsell.vo.SkuDetailVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public interface SkuService {
      * @param skuId
      * @return
      */
-    ServerResponse<ProductDetailVo> manageSkuDetail(Integer skuId);
+    ServerResponse<SkuDetailVo> manageSkuDetail(Integer skuId);
 
     /**
      * 获取商品列表
@@ -65,6 +66,22 @@ public interface SkuService {
      * @param skuId
      * @return
      */
-    ServerResponse<ProductDetailVo> getSkuDetail(Integer skuId);
+    ServerResponse<SkuDetailVo> getSkuDetail(Integer skuId);
+
+    /**
+     * 通过关键词和分类查询商品列表
+     * @param keyword
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ServerResponse<PageInfo> getSkuByKeyword(String keyword, int pageNum, int pageSize);
+
+    /**
+     * 通过skuId查询spgId
+     * @param skuId
+     * @return
+     */
+    ServerResponse<Integer> getSpgIdBySkuId(Integer skuId);
 
 }

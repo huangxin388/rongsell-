@@ -3,10 +3,13 @@ package com.bupt.rongsell.controller.backend;
 import com.bupt.rongsell.common.ServerResponse;
 import com.bupt.rongsell.entity.Sku;
 import com.bupt.rongsell.service.SkuService;
+import com.bupt.rongsell.vo.SkuDetailVo;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,5 +31,21 @@ public class SkuManageController {
     public ServerResponse<String> productSave(Sku sku) {
         log.info(sku.toString());
         return skuService.updateOrInsertSku(sku);
+    }
+
+    @PostMapping("/getskulist")
+    public ServerResponse<PageInfo> getSkuList(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                               @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        return skuService.getSkuList(pageNum, pageSize);
+    }
+
+    @PostMapping("/setsalestatus")
+    public ServerResponse<String> setSaleStatus(Integer productId, Integer status) {
+        return skuService.setSaleStatus(productId, status);
+    }
+
+    @PostMapping("/getskubyid")
+    public ServerResponse<SkuDetailVo> getSkuById(Integer skuId) {
+        return skuService.getSkuDetail(skuId);
     }
 }
