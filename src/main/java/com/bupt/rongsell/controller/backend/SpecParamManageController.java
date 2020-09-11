@@ -26,4 +26,9 @@ public class SpecParamManageController {
     public ServerResponse<List<SpecParam>> getSpecParams(Integer groupId) {
         return paramService.getSpuParams(groupId);
     }
+
+    @PostMapping("/getsaleparam")
+    public ServerResponse<List<SpecParam>> getSaleParams(Integer groupId) {
+        return paramService.getSaleParams(groupId);
+    }
 }

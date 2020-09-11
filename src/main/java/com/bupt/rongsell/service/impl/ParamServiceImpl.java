@@ -26,4 +26,10 @@ public class ParamServiceImpl implements ParamService {
         List<SpecParam> specParamList = specParamMapper.selectSpuParamByGroupId(groupId);
         return ServerResponse.getSuccess(specParamList);
     }
+
+    @Override
+    public ServerResponse<List<SpecParam>> getSaleParams(Integer groupId) {
+        List<SpecParam> specParamList = specParamMapper.selectSaleParamByGroupId(groupId);
+        return ServerResponse.getSuccess(specParamList);
+    }
 }

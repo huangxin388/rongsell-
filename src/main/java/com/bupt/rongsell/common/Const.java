@@ -125,6 +125,27 @@ public class Const {
         }
     }
 
+    public enum SkuStatusEnum {
+        ON_SALE(1, "在售"),
+        OUT_SALE(2, "下架"),
+        DELETED(3, "已删除");
+        private int code;
+        private String value;
+
+        SkuStatusEnum(int code, String value) {
+            this.code = code;
+            this.value = value;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
     public enum PaymentTypeEnum {
         ONLINE_PAY(1, "在线支付");
         private int code;

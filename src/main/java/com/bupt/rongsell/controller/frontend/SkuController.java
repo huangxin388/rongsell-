@@ -32,4 +32,9 @@ public class SkuController {
                                                    @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         return skuService.getSkuByKeyword(keyword, pageNum, pageSize);
     }
+
+    @PostMapping("/testresolve")
+    public ServerResponse<List<Sku>> testResolve() {
+        return skuService.testResolve();
+    }
 }

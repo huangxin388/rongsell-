@@ -84,4 +84,6 @@ public interface SkuService {
      */
     ServerResponse<Integer> getSpgIdBySkuId(Integer skuId);
 
+    ServerResponse<List<Sku>> testResolve();
+
 }

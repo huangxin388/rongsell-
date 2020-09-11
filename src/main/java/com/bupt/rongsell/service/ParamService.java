@@ -17,4 +17,11 @@ public interface ParamService {
      * @return
      */
     ServerResponse<List<SpecParam>> getSpuParams(Integer groupId);
+
+    /**
+     * 通过品类id获取该spu对应的销售参数
+     * @param groupId
+     * @return
+     */
+    ServerResponse<List<SpecParam>> getSaleParams(Integer groupId);
 }

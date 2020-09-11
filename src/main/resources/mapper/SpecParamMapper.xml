@@ -384,5 +384,13 @@
     select <include refid="Base_Column_List" />
     from t_spec_param_use
     where spg_id=#{groupId}
+    and generic=1
+  </select>
+
+  <select id="selectSaleParamByGroupId" resultMap="ParamResultMap">
+    select <include refid="Base_Column_List" />
+    from t_spec_param_use
+    where spg_id=#{groupId}
+    and generic=0
   </select>
 </mapper>

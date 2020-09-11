@@ -142,4 +142,6 @@ public interface SkuMapper {
      * @return
      */
     List<Sku> customerSelectSku(String keyworld);
+
+    List<Sku> testResolve();
 }

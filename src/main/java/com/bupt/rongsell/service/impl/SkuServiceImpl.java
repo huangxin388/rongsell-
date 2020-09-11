@@ -195,6 +195,12 @@ public class SkuServiceImpl implements SkuService {
         return null;
     }
 
+    @Override
+    public ServerResponse<List<Sku>> testResolve() {
+        List<Sku> skuList = skuMapper.testResolve();
+        return ServerResponse.getSuccess(skuList);
+    }
+
     private SkuListVo assembleSkuListVo(Sku sku) {
         SkuListVo skuListVo = new SkuListVo();
         skuListVo.setId(sku.getId());

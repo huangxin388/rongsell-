@@ -102,4 +102,11 @@ public interface SpecParamMapper {
      * @return
      */
     List<SpecParam> selectSpuParamByGroupId(Integer groupId);
+
+    /**
+     * 查询此商品的销售参数
+     * @param groupId
+     * @return
+     */
+    List<SpecParam> selectSaleParamByGroupId(Integer groupId);
 }

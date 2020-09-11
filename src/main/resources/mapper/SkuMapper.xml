@@ -523,4 +523,12 @@
       </if>
     </where>
   </select>
+
+  <select id="testResolve" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_sku_use
+    where spu_id=3
+    and status=1
+  </select>
 </mapper>
