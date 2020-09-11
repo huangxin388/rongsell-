@@ -76,6 +76,7 @@ public class SpuServiceImpl implements SpuService {
             spu.setValid(true);
             spu.setCreateTime(new Date());
             spu.setLastUpdateTime(new Date());
+            spu.setIsDelete(false);
             resultCount = spuMapper.insert(spu);
             // 添加产品信息成功，继续组装商品信息
             if(resultCount > 0) {
@@ -100,7 +101,7 @@ public class SpuServiceImpl implements SpuService {
                 sku.setLastUpdateTime(new Date());
                 resultCount = skuMapper.insert(sku);
                 if(resultCount > 0) {
-                    return ServerResponse.getFailureByMessage("添加商品信息成功");
+                    return ServerResponse.getSuccessByMessage("添加商品信息成功");
                 } else {
                     return ServerResponse.getFailureByMessage("添加商品信息失败");
                 }
