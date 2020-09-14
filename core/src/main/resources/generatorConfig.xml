@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--   <classPathEntry location=".\ojdbc6.jar" /> -->
+
+    <!-- 	<context id="OracleTables" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+            connectionURL="jdbc:oracle:thin:@localhost:1522:zju"
+            userId="yingdongli"
+            password="309zhijai">
+        </jdbcConnection> -->
+
+    <!--<classPathEntry location=".\mysql-connector-java-5.1.5-bin.jar" />-->
+
+    <!-- 如果使用MyBatis3Simple则不生成Example类 -->
+    <context id="MySQLTables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://116.62.50.7:3306/rongsell"
+                        userId="root"
+                        password="Admin@123">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="true" />
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.bupt.core.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+            <property name="addSetProperty" value="true" />
+            <property name="pageResultName" value="PageResult"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+            <property name="sqlTagTypeUpper" value="true" />
+        </sqlMapGenerator>
+
+        <!--type XMLMAPPER\ANNOTATEDMAPPER\MIXEDMAPPER-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.bupt.core.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="numberIncremental" value="true" />
+            <property name="turnPageName" value="TurnPage"/>
+            <property name="rowHandler" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="t_spec_group_use" domainObjectName="Group">
+            <property name="useActualColumnNames" value="false"/>
+            <!-- 插入时是否自动生成主键 -->
+             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+              <columnOverride column="content" jdbcType="VARCHAR" />
+        </table>
+
+    </context>
+</generatorConfiguration>
