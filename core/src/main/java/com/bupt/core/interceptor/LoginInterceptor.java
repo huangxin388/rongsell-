@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 
 /**
  * 判断用户是否登录
+ * 该拦截器目前已被AuthorityInterceptor替换
  * @Author huang xin
  * @Date 2020/4/10 19:19
  * @Version 1.0

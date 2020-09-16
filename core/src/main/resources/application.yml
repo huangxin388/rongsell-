@@ -6,10 +6,12 @@
 # sessionExpireFilter问题
 server:
   port: 9762
+  servlet:
+    context-path: /rongsell
 
 spring:
   application:
-    name: core
+    name: core-module
   datasource:
     url: jdbc:mysql://116.62.50.7:3306/rongsell?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     password: Admin@123
@@ -73,7 +75,7 @@ staticPath:
 
 feign:
   hystrix:
-    enabled: true
+    enabled: true  # feign整合hystrix
 
 #Mybatis
 mybatis:

@@ -37,7 +37,7 @@ public class UserManageController {
     public ServerResponse<User> login(String username, String password,
                                       HttpServletRequest request,
                                       HttpServletResponse httpServletResponse) {
-        ServerResponse response = userService.login(username, password);
+        ServerResponse<User> response = userService.login(username, password);
         if(response.isSuccess()) {
             User user = (User) response.getData();
             if(user.getRole() == Const.Role.ROLE_ADMIN) {
