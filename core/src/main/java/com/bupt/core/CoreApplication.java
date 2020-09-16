@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
 @EnableFeignClients
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.bupt")
 @MapperScan(value = "com.bupt.core.dao")
 public class CoreApplication {
 

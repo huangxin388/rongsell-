@@ -1,14 +1,14 @@
 package com.bupt.core.controller.frontend;
 
-import com.bupt.core.common.Const;
-import com.bupt.core.common.ServerResponse;
-import com.bupt.core.config.cache.RedisUtil;
-import com.bupt.core.entity.User;
-import com.bupt.core.enums.ResponseCode;
+import com.bupt.common.config.cache.RedisUtil;
+import com.bupt.common.constant.Const;
+import com.bupt.common.utils.ServerResponse;
+import com.bupt.common.enums.ResponseCode;
 import com.bupt.core.service.CartService;
-import com.bupt.core.utils.CookieUtil;
-import com.bupt.core.utils.JsonUtil;
+import com.bupt.common.utils.CookieUtil;
+import com.bupt.common.utils.JsonUtil;
 import com.bupt.core.vo.CartVo;
+import com.bupt.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

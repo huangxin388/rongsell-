@@ -1,6 +1,6 @@
 package com.bupt.core.utils;
 
-import com.bupt.core.common.Const;
+import com.bupt.common.constant.Const;
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

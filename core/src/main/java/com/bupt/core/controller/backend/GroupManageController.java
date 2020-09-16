@@ -1,6 +1,6 @@
 package com.bupt.core.controller.backend;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.entity.Group;
 import com.bupt.core.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;

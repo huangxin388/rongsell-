@@ -1,6 +1,6 @@
 package com.bupt.core.service;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.entity.Group;
 
 import java.util.List;

@@ -26,6 +26,11 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.bupt</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

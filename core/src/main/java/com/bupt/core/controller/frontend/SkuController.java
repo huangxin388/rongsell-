@@ -1,6 +1,6 @@
 package com.bupt.core.controller.frontend;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.entity.Sku;
 import com.bupt.core.service.SkuService;
 import com.github.pagehelper.PageInfo;

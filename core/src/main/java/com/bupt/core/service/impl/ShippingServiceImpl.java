@@ -1,6 +1,6 @@
 package com.bupt.core.service.impl;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.dao.ShippingMapper;
 import com.bupt.core.entity.Shipping;
 import com.bupt.core.service.ShippingService;

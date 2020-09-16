@@ -1,8 +1,5 @@
 package com.bupt.core.config.web;
 
-
-import com.bupt.core.filter.CrossFilter;
-import com.bupt.core.filter.SessionExpireFilter;
 import com.bupt.core.interceptor.AuthorityInterceptor;
 import com.bupt.core.interceptor.LoginInterceptor;
 import org.springframework.beans.BeansException;
@@ -61,27 +58,10 @@ public class MvcConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         return multipartResolver;
     }
 
-    @Bean
-    public SessionExpireFilter loadSessionExpireFilter() {
-        return new SessionExpireFilter();
-    }
 
-    @Bean FilterRegistrationBean loadFilterRegistrationBean() {
-        return new FilterRegistrationBean();
-    }
-
-    @Bean
-    public FilterRegistrationBean crossFilterRegistration() {
-        FilterRegistrationBean registration = loadFilterRegistrationBean();
-        // 跨域
-        loadFilterRegistrationBean().setFilter(new CrossFilter());
-        // 重置session过期时间
-//        loadFilterRegistrationBean().setFilter(loadSessionExpireFilter());
-        registration.addUrlPatterns("/*");
-        registration.addInitParameter("paramName", "paramValue");
-        registration.setName("crossFilter");
-        return registration;
-    }
+//    @Bean FilterRegistrationBean loadFilterRegistrationBean() {
+//        return new FilterRegistrationBean();
+//    }
 
     @Bean
     public CookieSerializer httpSessionIdResolver() {

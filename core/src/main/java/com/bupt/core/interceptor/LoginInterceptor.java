@@ -1,10 +1,10 @@
 package com.bupt.core.interceptor;
 
-import com.bupt.core.common.ServerResponse;
-import com.bupt.core.config.cache.RedisUtil;
-import com.bupt.core.entity.User;
-import com.bupt.core.utils.CookieUtil;
-import com.bupt.core.utils.JsonUtil;
+import com.bupt.common.config.cache.RedisUtil;
+import com.bupt.common.utils.ServerResponse;
+import com.bupt.common.utils.CookieUtil;
+import com.bupt.common.utils.JsonUtil;
+import com.bupt.user.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;

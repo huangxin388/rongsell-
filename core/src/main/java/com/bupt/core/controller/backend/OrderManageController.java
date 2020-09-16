@@ -1,9 +1,9 @@
 package com.bupt.core.controller.backend;
 
-import com.bupt.core.common.ServerResponse;
-import com.bupt.core.config.cache.RedisUtil;
+import com.bupt.common.config.cache.RedisUtil;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.service.OrderService;
-import com.bupt.core.service.UserService;
+import com.bupt.user.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

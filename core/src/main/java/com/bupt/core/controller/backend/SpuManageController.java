@@ -1,6 +1,6 @@
 package com.bupt.core.controller.backend;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.service.SpuService;
 import com.bupt.core.vo.SpuAndSkuVo;
 import lombok.extern.slf4j.Slf4j;

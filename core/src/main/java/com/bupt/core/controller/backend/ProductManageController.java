@@ -1,6 +1,6 @@
 package com.bupt.core.controller.backend;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.entity.Product;
 import com.bupt.core.service.FileService;
 import com.bupt.core.service.ProductService;

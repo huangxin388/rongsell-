@@ -1,6 +1,6 @@
 package com.bupt.core.service.impl;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.dao.GroupMapper;
 import com.bupt.core.entity.Group;
 import com.bupt.core.service.GroupService;

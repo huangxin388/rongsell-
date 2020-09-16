@@ -1,6 +1,6 @@
 package com.bupt.core.service;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.entity.Sku;
 import com.bupt.core.vo.SkuDetailVo;
 import com.github.pagehelper.PageInfo;

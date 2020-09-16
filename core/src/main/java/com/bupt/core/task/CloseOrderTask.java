@@ -1,7 +1,7 @@
 package com.bupt.core.task;
 
-import com.bupt.core.common.Const;
-import com.bupt.core.config.cache.RedisUtil;
+import com.bupt.common.config.cache.RedisUtil;
+import com.bupt.common.constant.Const;
 import com.bupt.core.service.OrderService;
 import com.bupt.core.utils.PropertyUtil;
 import lombok.extern.slf4j.Slf4j;

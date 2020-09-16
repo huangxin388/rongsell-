@@ -1,6 +1,6 @@
 package com.bupt.core.common;
 
-import com.bupt.core.enums.ResponseCode;
+import com.bupt.common.enums.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;

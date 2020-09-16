@@ -1,13 +1,13 @@
 package com.bupt.core.service.impl;
 
-import com.bupt.core.common.Const;
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.constant.Const;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.dao.SkuMapper;
 import com.bupt.core.entity.Sku;
 import com.bupt.core.entity.SkuExample;
 import com.bupt.core.enums.ProductStatusEnum;
 import com.bupt.core.service.SkuService;
-import com.bupt.core.utils.DatetimeUtil;
+import com.bupt.common.utils.DatetimeUtil;
 import com.bupt.core.utils.PropertyUtil;
 import com.bupt.core.vo.SkuDetailVo;
 import com.bupt.core.vo.SkuListVo;

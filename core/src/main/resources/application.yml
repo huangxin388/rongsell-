@@ -5,19 +5,11 @@
 # spring boot中如何处理全局异常，component,configuration和静态util类的区别
 # sessionExpireFilter问题
 server:
-  servlet:
-    context-path: /rongsell
-  port: 8080
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-
+  port: 9762
 
 spring:
   application:
-    name: rongsell
+    name: core
   datasource:
     url: jdbc:mysql://116.62.50.7:3306/rongsell?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
     password: Admin@123
@@ -66,29 +58,10 @@ spring:
         testOnReturn: false # 归还连接至连接池时先校验连接是否可用
         blockWhenExhausted: true
 
-
-#Mybatis
-mybatis:
-  #加载mybatis主要配置类
-  config-location: classpath:/mybatis-config.xml
-  #加载mapper配置类
-  mapper-locations: classpath:/mapper/*.xml
-  #加载mapper实体类
-  type-aliases-package: com.bupt.rongsell.entity
-  #json转换类
-  type-handlers-package: com.bupt.core.config.dao.JsonTypeHandler
-  mybatis.type-handlers-package: com.bupt.core.config.dao.JsonTypeHandler
-
-#pageHelper分页配置
-pagehelper:
-  #pageSize=0或者RowBounds.limit = 0时返回全部结果
-  page-size-zero: true
-  #将 RowBounds 中的 offset 参数当成 pageNum 使用，可以用页码和页面大小两个参数进行分页
-  offset-as-page-num: true
-  #使用 RowBounds 分页会进行 count 查询
-  row-bounds-with-count: true
-  #pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页；该参数为false时不合法参数将会返回空
-  reasonable: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
 
 staticPath:
   win:
@@ -101,3 +74,14 @@ staticPath:
 feign:
   hystrix:
     enabled: true
+
+#Mybatis
+mybatis:
+  #加载mybatis主要配置类
+#  config-location: classpath:/mybatis-config.xml
+  #加载mapper配置类
+  mapper-locations: classpath:/mapper/*.xml
+  #加载mapper实体类
+  type-aliases-package: com.bupt.core.entity
+
+

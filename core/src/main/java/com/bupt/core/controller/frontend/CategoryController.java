@@ -1,6 +1,6 @@
 package com.bupt.core.controller.frontend;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.entity.Category;
 import com.bupt.core.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.bupt.core.controller.frontend;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.service.ProductService;
 import com.bupt.core.vo.ProductDetailVo;
 import com.github.pagehelper.PageInfo;

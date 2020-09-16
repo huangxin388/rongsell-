@@ -1,6 +1,6 @@
 package com.bupt.core.controller.backend;
 
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.entity.Spu;
 import com.bupt.core.service.SpuService;
 import org.springframework.beans.factory.annotation.Autowired;

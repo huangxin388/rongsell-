@@ -1,7 +1,7 @@
 package com.bupt.core.service.impl;
 
-import com.bupt.core.common.Const;
-import com.bupt.core.common.ServerResponse;
+import com.bupt.common.constant.Const;
+import com.bupt.common.utils.ServerResponse;
 import com.bupt.core.dao.SkuMapper;
 import com.bupt.core.dao.SpuMapper;
 import com.bupt.core.entity.Sku;
