@@ -11,4 +11,12 @@ eureka:
     register-with-eureka: false
     fetch-registry: false
   service-url:
-    defaultZone: http://localhost:8761/eureka/
+    defaultZone: http://admin:adminp@localhost:8761/eureka/
+
+
+spring:
+  security:
+    user:
+      name: admin
+      password: adminp
+      roles: SUPERUSER
